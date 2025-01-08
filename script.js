@@ -1,32 +1,46 @@
-// sum function
-function add(...args) {
-    const totalSum = args.reduce(
-        (previousValue, currentValue) => previousValue + currentValue
-    )
-    return parseFloat(totalSum).toFixed(8)
+// summation
+function add(a, b) {
+    return a + b
 }
 
-// subtract function
-function subtract(...args) {
-    const totalSubtract = args.reduce(
-        (previousValue, currentValue) => previousValue - currentValue
-    )
-    return parseFloat(totalSubtract).toFixed(8)
+// subtraction
+function subtract(a, b) {
+    return a - b
 }
 
-// multiply function
-function multiply(...args) {
-    const totalProduct = args.reduce(
-        (previousValue, currentValue) => previousValue * currentValue
-    )
-    return parseFloat(totalProduct).toFixed(8)
+// multiplication
+function multiply(a, b) {
+    return a * b
 }
 
-// divide function
-function divide(...args) {
-    const totalDivision = args.reduce(
-        (previousValue, currentValue) => previousValue / currentValue
-    )
-    return parseFloat(totalDivision).toFixed(8)
+// division
+function divide(a, b) {
+    return a / b
 }
 
+// parts of operation that will be used to update the display later
+let firstNum, secondNum, operation;
+
+function operate(numberOne, numberTwo, operator) {
+    switch (String(operator)) {
+        case '+':
+            console.log(add(numberOne, numberTwo));
+            break;
+        case '-':
+            console.log(subtract(numberOne, numberTwo));
+            break;
+        case '*':
+            console.log(multiply(numberOne, numberTwo));
+            break;
+        case '/':
+            console.log(divide(numberOne, numberTwo));
+            break;
+    }
+}
+
+// test run
+firstNum = 1;
+secondNum = 2;
+operation = '+';
+
+operate(firstNum, secondNum, operation);
