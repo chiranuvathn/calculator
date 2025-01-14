@@ -39,8 +39,26 @@ function operate(numberOne, numberTwo, operator) {
 }
 
 // test run
-firstNum = 1;
-secondNum = 2;
-operation = '+';
+// firstNum = 1;
+// secondNum = 2;
+// operation = '+';
+// operate(firstNum, secondNum, operation);
 
-operate(firstNum, secondNum, operation);
+
+// display clicked digit buttons
+function displayNumber () {
+    const calculatorDisplay = document.querySelector('#cal-display');
+    // select all matching class with this pattern
+    const calculatorNumbers = document.querySelectorAll("[class^='button-number-']");
+
+    calculatorNumbers.forEach(number => {
+        number.addEventListener('click', function(event) {
+            const clickedButton = event.target;
+            const buttonNumber = clickedButton.innerText;
+            // get text value from HTML and update the calculator display
+            calculatorDisplay.textContent = buttonNumber;
+        })
+    })
+}
+
+displayNumber();
