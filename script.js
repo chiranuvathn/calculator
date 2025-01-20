@@ -45,20 +45,41 @@ function operate(numberOne, numberTwo, operator) {
 // operate(firstNum, secondNum, operation);
 
 
+const calculatorDisplay = document.querySelector('#cal-display');
+
 // display clicked digit buttons
 function displayNumber () {
-    const calculatorDisplay = document.querySelector('#cal-display');
-    // select all matching class with this pattern
+    // select all numbers
     const calculatorNumbers = document.querySelectorAll("[class^='button-number-']");
-
     calculatorNumbers.forEach(number => {
         number.addEventListener('click', function(event) {
-            const clickedButton = event.target;
-            const buttonNumber = clickedButton.innerText;
-            // get text value from HTML and update the calculator display
-            calculatorDisplay.textContent = buttonNumber;
+            const clickedNumber = event.target;
+            const buttonNumber = clickedNumber.innerText;
+            calculatorDisplay.textContent += buttonNumber;
         })
+    })
+    
+    // select all operators
+    const calculatorOperators = document.querySelectorAll("[class^='button-operator-']");
+    calculatorOperators.forEach(operator => {
+        operator.addEventListener('click', function(event) {
+            const clickedOperator = event.target;
+            const buttonOperator = clickedOperator.innerText;
+            calculatorDisplay.textContent += buttonOperator;
+        })
+    })
+
+}
+
+// display clear
+function displayClear() {
+    const clearFunction = document.querySelector('.button-clear');
+
+    clearFunction.addEventListener('click', () => {
+        calculatorDisplay.textContent = 0;
     })
 }
 
+
 displayNumber();
+displayClear();

@@ -10,7 +10,13 @@ body {
     line-height: 1.5;
 }
 
+button {
+    padding: 10px;
+    border-radius: 50%;
+}
+
 #cal-border {
+    margin: auto;
     max-width: 400px;
     border: 1px solid green;
 }
