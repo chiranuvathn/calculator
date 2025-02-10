@@ -1,3 +1,9 @@
+const calculatorDisplay = document.querySelector('#cal-display');
+let firstNum = 0;
+let secondNum = 0;
+let operation = '';
+let result = 0;
+
 // summation
 function add(a, b) {
     return a + b
@@ -18,9 +24,7 @@ function divide(a, b) {
     return a / b
 }
 
-// parts of operation that will be used to update the display later
-let firstNum, secondNum, operation;
-
+// perform calculation based on operator
 function operate(numberOne, numberTwo, operator) {
     switch (String(operator)) {
         case '+':
@@ -38,48 +42,72 @@ function operate(numberOne, numberTwo, operator) {
     }
 }
 
-// test run
-// firstNum = 1;
-// secondNum = 2;
-// operation = '+';
-// operate(firstNum, secondNum, operation);
-
-
-const calculatorDisplay = document.querySelector('#cal-display');
-
-// display clicked digit buttons
-function displayNumber () {
-    // select all numbers
-    const calculatorNumbers = document.querySelectorAll("[class^='button-number-']");
-    calculatorNumbers.forEach(number => {
-        number.addEventListener('click', function(event) {
-            const clickedNumber = event.target;
-            const buttonNumber = clickedNumber.innerText;
-            calculatorDisplay.textContent += buttonNumber;
-        })
-    })
-    
-    // select all operators
-    const calculatorOperators = document.querySelectorAll("[class^='button-operator-']");
-    calculatorOperators.forEach(operator => {
-        operator.addEventListener('click', function(event) {
-            const clickedOperator = event.target;
-            const buttonOperator = clickedOperator.innerText;
-            calculatorDisplay.textContent += buttonOperator;
-        })
-    })
-
-}
-
-// display clear
 function displayClear() {
     const clearFunction = document.querySelector('.button-clear');
 
     clearFunction.addEventListener('click', () => {
         calculatorDisplay.textContent = 0;
+        
+        firstNum = 0;
+        secondNum = 0;
+        operation = '';
+        result = 0;
     })
 }
 
+function displayUpdate(input) {
+    if (calculatorDisplay.textContent == 0) {
+        calculatorDisplay.textContent = '';
+    }
 
-displayNumber();
+    calculatorDisplay.textContent += input;
+}
+
+function clickedNumber () {
+    const calculatorNumbers = document.querySelectorAll("[class^='button-number-']");
+    calculatorNumbers.forEach(number => {
+        number.addEventListener('click', function(e) {
+            const event = e.target;
+            const buttonNumber = event.innerText;
+            
+            if (operation == '') {
+                firstNum += parseInt(buttonNumber);
+                // console.log('This is firstNum ' + firstNum);
+            } else {
+                secondNum += parseInt(buttonNumber);
+                // console.log('This is secondNum ' + secondNum);
+            }
+
+            displayUpdate(buttonNumber);
+        })
+    })
+}
+
+function clickedOperator () {
+    const calculatorOperators = document.querySelectorAll("[class^='button-operator-']");
+    calculatorOperators.forEach(operator => {
+        operator.addEventListener('click', function(e) {
+            const event = e.target;
+            const buttonOperator = event.innerText;
+
+            operation = buttonOperator;
+            // console.log('This is operator ' + operation);
+
+            displayUpdate(buttonOperator);
+        })
+    })
+}
+
+function performCalculation () {
+    const calculatorEqual = document.querySelector('.button-equal');
+
+    calculatorEqual.addEventListener('click', () => {
+        operate(firstNum, secondNum, operation);
+    })
+
+}
+
+clickedNumber();
+clickedOperator();
+performCalculation();
 displayClear();
