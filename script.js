@@ -1,43 +1,38 @@
 const calculatorDisplay = document.querySelector('#cal-display');
-let firstNum = 0;
-let secondNum = 0;
+let firstNum = '';
+let secondNum = '';
 let operation = '';
-let result = 0;
+let result = '';
 
-// summation
 function add(a, b) {
     return a + b
 }
 
-// subtraction
 function subtract(a, b) {
     return a - b
 }
 
-// multiplication
 function multiply(a, b) {
     return a * b
 }
 
-// division
 function divide(a, b) {
     return a / b
 }
 
-// perform calculation based on operator
 function operate(numberOne, numberTwo, operator) {
     switch (String(operator)) {
         case '+':
-            console.log(add(numberOne, numberTwo));
+            result = add(numberOne, numberTwo);
             break;
         case '-':
-            console.log(subtract(numberOne, numberTwo));
+            result = subtract(numberOne, numberTwo);
             break;
         case '*':
-            console.log(multiply(numberOne, numberTwo));
+            result = multiply(numberOne, numberTwo);
             break;
         case '/':
-            console.log(divide(numberOne, numberTwo));
+            result = divide(numberOne, numberTwo);
             break;
     }
 }
@@ -48,10 +43,10 @@ function displayClear() {
     clearFunction.addEventListener('click', () => {
         calculatorDisplay.textContent = 0;
         
-        firstNum = 0;
-        secondNum = 0;
+        firstNum = '';
+        secondNum = '';
         operation = '';
-        result = 0;
+        result = '';
     })
 }
 
@@ -71,11 +66,9 @@ function clickedNumber () {
             const buttonNumber = event.innerText;
             
             if (operation == '') {
-                firstNum += parseInt(buttonNumber);
-                // console.log('This is firstNum ' + firstNum);
+                firstNum += buttonNumber;
             } else {
-                secondNum += parseInt(buttonNumber);
-                // console.log('This is secondNum ' + secondNum);
+                secondNum += buttonNumber;
             }
 
             displayUpdate(buttonNumber);
@@ -91,7 +84,6 @@ function clickedOperator () {
             const buttonOperator = event.innerText;
 
             operation = buttonOperator;
-            // console.log('This is operator ' + operation);
 
             displayUpdate(buttonOperator);
         })
@@ -102,7 +94,8 @@ function performCalculation () {
     const calculatorEqual = document.querySelector('.button-equal');
 
     calculatorEqual.addEventListener('click', () => {
-        operate(firstNum, secondNum, operation);
+        operate(parseFloat(firstNum), parseFloat(secondNum), operation);
+        calculatorDisplay.textContent = result;
     })
 
 }
