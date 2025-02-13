@@ -60,6 +60,7 @@ function displayUpdate(input) {
 
 function clickedNumber () {
     const calculatorNumbers = document.querySelectorAll("[class^='button-number-']");
+    
     calculatorNumbers.forEach(number => {
         number.addEventListener('click', function(e) {
             const event = e.target;
@@ -78,12 +79,19 @@ function clickedNumber () {
 
 function clickedOperator () {
     const calculatorOperators = document.querySelectorAll("[class^='button-operator-']");
+    
     calculatorOperators.forEach(operator => {
         operator.addEventListener('click', function(e) {
             const event = e.target;
             const buttonOperator = event.innerText;
 
-            operation = buttonOperator;
+            if (operation == '') {
+                operation = buttonOperator;
+            } else {
+                firstNum = result;
+                secondNum = '';
+                operation = buttonOperator;
+            }
 
             displayUpdate(buttonOperator);
         })
@@ -96,6 +104,11 @@ function performCalculation () {
     calculatorEqual.addEventListener('click', () => {
         operate(parseFloat(firstNum), parseFloat(secondNum), operation);
         calculatorDisplay.textContent = result;
+        
+        console.log('This is firstNum ' + firstNum);
+        console.log('This is secondNum ' + secondNum);
+        console.log('This is operator ' + operation);
+        console.log('This is result ' + result);
     })
 
 }
