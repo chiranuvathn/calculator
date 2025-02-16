@@ -5,19 +5,19 @@ let operation = '';
 let result = '';
 
 function add(a, b) {
-    return a + b
+    return Math.round((a + b) * 100) / 100
 }
 
 function subtract(a, b) {
-    return a - b
+    return Math.round((a - b) * 100) / 100
 }
 
 function multiply(a, b) {
-    return a * b
+    return Math.round((a * b) * 100) / 100
 }
 
 function divide(a, b) {
-    return a / b
+    return Math.round((a / b) * 100) / 100
 }
 
 function operate(numberOne, numberTwo, operator) {
@@ -102,13 +102,15 @@ function performCalculation () {
     const calculatorEqual = document.querySelector('.button-equal');
 
     calculatorEqual.addEventListener('click', () => {
+        if (calculatorDisplay.innerText == '0') {
+            alert("Error: No Input! Please try again.");
+        // if any of these is falsy
+        } else if (!firstNum || !secondNum || !operation) {
+            alert("Error: Missing Number / Operator. Please try again.");
+        }
+
         operate(parseFloat(firstNum), parseFloat(secondNum), operation);
         calculatorDisplay.textContent = result;
-        
-        console.log('This is firstNum ' + firstNum);
-        console.log('This is secondNum ' + secondNum);
-        console.log('This is operator ' + operation);
-        console.log('This is result ' + result);
     })
 
 }
