@@ -37,6 +37,21 @@ function operate(numberOne, numberTwo, operator) {
     }
 }
 
+function clickedPercentage() {
+    const percentage = document.querySelector('.button-percentage');
+
+    percentage.addEventListener('click', () => {
+        if (result == '') {
+            alert("Error: No Input! Please try again.");
+        }
+
+        result /= 100;
+
+        // should find a way to use displayUpdate here instead
+        calculatorDisplay.textContent = result;
+    })
+}
+
 function displayClear() {
     const clearFunction = document.querySelector('.button-clear');
 
@@ -102,6 +117,7 @@ function performCalculation () {
     const calculatorEqual = document.querySelector('.button-equal');
 
     calculatorEqual.addEventListener('click', () => {
+        // these aren't complete since they are still looking a bit weird
         if (calculatorDisplay.innerText == '0') {
             alert("Error: No Input! Please try again.");
         // if any of these is falsy
@@ -110,6 +126,7 @@ function performCalculation () {
         }
 
         operate(parseFloat(firstNum), parseFloat(secondNum), operation);
+        // should find a way to use displayUpdate here instead
         calculatorDisplay.textContent = result;
     })
 
@@ -118,4 +135,5 @@ function performCalculation () {
 clickedNumber();
 clickedOperator();
 performCalculation();
+clickedPercentage();
 displayClear();
