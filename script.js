@@ -23,16 +23,16 @@ function divide(a, b) {
 function operate(numberOne, numberTwo, operator) {
     switch (String(operator)) {
         case '+':
-            result = add(numberOne, numberTwo);
+            result = add(numberOne, numberTwo).toString();
             break;
         case '-':
-            result = subtract(numberOne, numberTwo);
+            result = subtract(numberOne, numberTwo).toString();
             break;
         case '*':
-            result = multiply(numberOne, numberTwo);
+            result = multiply(numberOne, numberTwo).toString();
             break;
         case '/':
-            result = divide(numberOne, numberTwo);
+            result = divide(numberOne, numberTwo).toString();
             break;
     }
 }
@@ -47,30 +47,57 @@ function clickedPercentage() {
 
         result /= 100;
 
-        // should find a way to use displayUpdate here instead
         calculatorDisplay.textContent = result;
     })
+}
+
+function clickedDelete() {
+    const del = document.querySelector('.button-delete');
+
+    del.addEventListener('click', () => {
+        if (result) {
+            // pending to make this work during display update and variables reset
+            result = result.slice(0, -1);
+            displayUpdate();
+        } else if (secondNum) {
+            secondNum = secondNum.slice(0, -1);
+            displayUpdate();
+        } else if (operation) {
+            operation = '';
+            displayUpdate();
+        } else if (firstNum) {
+            firstNum = firstNum.slice(0, -1);
+            displayUpdate();
+        }
+
+        if (!firstNum && !operation && !secondNum) {
+            resetCalculator();
+        } else {
+            displayUpdate();
+        }
+    })
+}
+
+function resetCalculator() {
+    calculatorDisplay.textContent = 0;
+    firstNum = '';
+    secondNum = '';
+    operation = '';
+    result = '';
 }
 
 function displayClear() {
     const clearFunction = document.querySelector('.button-clear');
 
-    clearFunction.addEventListener('click', () => {
-        calculatorDisplay.textContent = 0;
-        
-        firstNum = '';
-        secondNum = '';
-        operation = '';
-        result = '';
-    })
+    clearFunction.addEventListener('click', resetCalculator);
 }
 
-function displayUpdate(input) {
+function displayUpdate() {
     if (calculatorDisplay.textContent == 0) {
         calculatorDisplay.textContent = '';
     }
 
-    calculatorDisplay.textContent += input;
+    calculatorDisplay.textContent = firstNum + operation + secondNum;    
 }
 
 function clickedNumber () {
@@ -87,7 +114,7 @@ function clickedNumber () {
                 secondNum += buttonNumber;
             }
 
-            displayUpdate(buttonNumber);
+            displayUpdate();
         })
     })
 }
@@ -108,7 +135,7 @@ function clickedOperator () {
                 operation = buttonOperator;
             }
 
-            displayUpdate(buttonOperator);
+            displayUpdate();
         })
     })
 }
@@ -117,16 +144,17 @@ function performCalculation () {
     const calculatorEqual = document.querySelector('.button-equal');
 
     calculatorEqual.addEventListener('click', () => {
-        // these aren't complete since they are still looking a bit weird
         if (calculatorDisplay.innerText == '0') {
             alert("Error: No Input! Please try again.");
+            resetCalculator();
         // if any of these is falsy
         } else if (!firstNum || !secondNum || !operation) {
             alert("Error: Missing Number / Operator. Please try again.");
+            resetCalculator();
         }
 
         operate(parseFloat(firstNum), parseFloat(secondNum), operation);
-        // should find a way to use displayUpdate here instead
+
         calculatorDisplay.textContent = result;
     })
 
@@ -136,4 +164,5 @@ clickedNumber();
 clickedOperator();
 performCalculation();
 clickedPercentage();
+clickedDelete();
 displayClear();
