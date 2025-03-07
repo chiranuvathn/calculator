@@ -55,10 +55,12 @@ function clickedDelete() {
     const del = document.querySelector('.button-delete');
 
     del.addEventListener('click', () => {
+        if (!firstNum && !operation && !secondNum) {
+            resetCalculator();
+        }
+        
         if (result) {
-            // pending to make this work during display update and variables reset
-            result = result.slice(0, -1);
-            displayUpdate();
+            resetCalculator();
         } else if (secondNum) {
             secondNum = secondNum.slice(0, -1);
             displayUpdate();
@@ -67,12 +69,6 @@ function clickedDelete() {
             displayUpdate();
         } else if (firstNum) {
             firstNum = firstNum.slice(0, -1);
-            displayUpdate();
-        }
-
-        if (!firstNum && !operation && !secondNum) {
-            resetCalculator();
-        } else {
             displayUpdate();
         }
     })
@@ -108,6 +104,10 @@ function clickedNumber () {
             const event = e.target;
             const buttonNumber = event.innerText;
             
+            if (result) {
+                resetCalculator();
+            }
+
             if (operation == '') {
                 firstNum += buttonNumber;
             } else {
@@ -126,6 +126,10 @@ function clickedOperator () {
         operator.addEventListener('click', function(e) {
             const event = e.target;
             const buttonOperator = event.innerText;
+
+            if (result) {
+                resetCalculator();
+            }
 
             if (operation == '') {
                 operation = buttonOperator;
