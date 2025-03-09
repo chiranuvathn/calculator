@@ -12,15 +12,41 @@ body {
 
 button {
     padding: 10px;
-    border-radius: 50%;
+    border-radius: 10%;
+    border: 10px solid transparent;
+}
+
+#cal-display {
+    color: white;
+    background-color: black;
+    height: 80px;
+    text-align: right;
+    font-size: 60px;
+}
+
+#cal-button {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+}
+
+/* [id^='cal-button-row-'] { */
+#cal-button-row-one {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+[class^='button-number-'] {
+    color: white;
+    background-color: #333333;
+}
+
+[class^='button-operator-'], .button-equal {
+    color: white;
+    background-color: #f2a33c;
 }
 
 #cal-border {
     margin: auto;
     max-width: 400px;
-    border: 1px solid green;
-}
-
-#cal-display {
-    border: 1px solid red;
 }
